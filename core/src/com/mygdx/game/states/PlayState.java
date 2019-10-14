@@ -14,7 +14,7 @@ public class PlayState extends state {
 
     private supman Supman;
     private Texture bg;
-    //private obstacle obs;
+
 
     private Array<obstacle> kps;
 
@@ -45,7 +45,8 @@ public class PlayState extends state {
         Supman.update(dt);
         cam.position.x = supman.getPosition().x + 80;
 
-        for(obstacle obs : kps){
+        for(int i = 0; i < kps.size; i++){
+            obstacle obs = kps.get(i);
             if(cam.position.x - (cam.viewportWidth / 2) > obs.getPostop().x + obs.getTop().getWidth()){
                 obs.reposition(obs.getPostop().x + ((obstacle.KP_WIDTH + KP_SPACING) * KP_COUNT));
             }
@@ -73,6 +74,10 @@ public class PlayState extends state {
 
     @Override
     public void dispose() {
-
+        bg.dispose();
+        Supman.dispose();
+        for(obstacle obs : kps)
+            obs.dispose();
+       System.out.println("play state disposed");
     }
 }
